@@ -582,11 +582,15 @@ PlayerSettings:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
+    Build: 0
+    Collab: 0
+    ErrorHub: 0
+    Hub: 0
     UNet: 1
   facebookSdkVersion: 7.9.1
   apiCompatibilityLevel: 2
-  cloudProjectId: 9480752f-d615-48e9-b7e9-9e21bebf2cfd
-  projectName: Integrating Unity Ads
+  cloudProjectId: 5edbbe4e-d530-492e-8224-7af9ffdc8c50
+  projectName: Services Integrating Unity Ads
   organizationId: ibmaciel
   cloudEnabled: 0
   enableNewInputSystem: 0
