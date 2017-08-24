@@ -18,22 +18,45 @@ public class AdManager : MonoBehaviour {
 		Debug.Log("Unity Ads is supported: " + Advertisement.isSupported);
 		Debug.Log("Unity Ads test mode enabled: " + Advertisement.testMode);
 		Debug.Log("Unity Ads game id: " + Advertisement.gameId);
-		Debug.Log("Unity Ads is ready: " + Advertisement.IsReady(placementID));
-		Debug.Log("Unity Ads is ready: " + Advertisement.GetPlacementState(placementID));
+		Debug.Log("Unity Ads is ready: " + Advertisement.IsReady(null));
+		Debug.Log("Unity Ads placement state: " + Advertisement.GetPlacementState(placementID));
 	}
 
-	public void ShowAd () {
+	public void ShowAd (string zone = "") {
 
 		#if UNITY_EDITOR
 			StartCoroutine (WaitForAd ());
 		#endif
-		if (Advertisement.IsReady()) {
-			Advertisement.Show ();
+
+		if (string.Equals (zone, ""))
+			zone = null;
+
+		ShowOptions options = new ShowOptions ();
+		options.resultCallback = AdCallbackhandler;
+
+		if (Advertisement.IsReady(zone)) {
+			Advertisement.Show (zone, options);
 		}
-		print (Advertisement.IsReady ());
+		print (Advertisement.IsReady (zone));
 
 		SceneManager.LoadScene ("Main2");
 //		Application.LoadLevel ("Main2");
+	}
+
+	void AdCallbackhandler (ShowResult result)
+	{
+		switch(result)
+		{
+		case ShowResult.Finished:
+			Debug.Log ("Ad Finished. Rewarding player...");
+			break;
+		case ShowResult.Skipped:
+			Debug.Log ("Ad skipped. Son, I am dissapointed in you");
+			break;
+		case ShowResult.Failed:
+			Debug.Log("I swear this has never happened to me before");
+			break;
+		}
 	}
 
 	IEnumerator WaitForAd () {
